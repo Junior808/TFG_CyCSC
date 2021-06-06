@@ -1,0 +1,16 @@
+[DEFAULT]
+bantime.increment = true
+bantime.rndtime = 259200
+findtime  = 43200
+maxretry = 5
+
+[asterisk]
+
+enabled  = true
+port     = 5060,5061
+action   = %(banaction)s[name=%(__name__)s-tcp, port="%(port)s", protocol="tcp", chain="%(chain)s", actname=%(banaction)s-tcp]
+           %(banaction)s[name=%(__name__)s-udp, port="%(port)s", protocol="udp", chain="%(chain)s", actname=%(banaction)s-udp]
+           %(mta)s-whois[name=%(__name__)s, dest="%(destemail)s"]
+logpath  = /var/log/asterisk/messages
+maxretry = 5
+
